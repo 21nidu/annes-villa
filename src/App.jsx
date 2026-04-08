@@ -8,9 +8,14 @@ export default function App() {
   <div className="flex justify-between items-center px-8 py-4">
 
     {/* LOGO */}
-    <h1 className="text-yellow-400 font-serif text-2xl tracking-wide">
-      Anne’s Villa
-    </h1>
+    <div className="text-yellow-400 font-serif flex flex-col items-center leading-tight">
+      <h1 className="text-2xl tracking-wide">
+        Anne’s Villa
+      </h1>
+      <p className="text-xs tracking-widest uppercase opacity-70">
+        Gamekkanda
+      </p>
+    </div>
 
     {/* LINKS */}
     <div className="space-x-6 text-sm">
@@ -48,27 +53,86 @@ export default function App() {
           <p className="mt-6 text-lg text-gray-300 tracking-wide">
             Built with Love
           </p>
+
+          <a
+            href="mailto:waniduwaram21@gmail.com?subject=Stay Booking Inquiry&body=Hello,%0A%0AI would like to inquire about booking a stay at Anne's Villa.%0A%0AThank you."
+            target="_blank"
+            className="mt-6 px-6 py-3 bg-yellow-400 text-black rounded-full hover:bg-yellow-300 transition inline-block"
+          >
+            Book a Stay
+          </a>
         </motion.div>
       </section>
 
      
 
       {/* ABOUT */}
-      <motion.section
-        id="about"
-        className="py-28 px-6 md:px-20 text-center"
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-      >
-        <h2 className="text-3xl text-yellow-400 mb-6 font-serif">
-          Our Story
-        </h2>
-        <p className="max-w-2xl mx-auto text-gray-300">
-          Anne’s Villa was built as a heartfelt birthday gift — a home
-          created with love, care, and a dream of something truly special.
-        </p>
-      </motion.section>
+<motion.section
+  id="about"
+  className="relative py-28 px-6 md:px-20 text-center bg-cover bg-[center_40%]"
+  style={{
+    backgroundImage: "url('/mom-bg.jpg')"
+  }}
+  initial={{ opacity: 0, y: 50 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.8 }}
+  viewport={{ once: true }}
+>
+
+  {/* OVERLAY */}
+  <div className="absolute inset-0 bg-black/70"></div>
+
+  {/* CONTENT */}
+  <div className="relative z-10 max-w-3xl mx-auto">
+
+    <h2 className="text-3xl text-yellow-400 mb-6 font-serif">
+      Our Story
+    </h2>
+
+    <p className="text-gray-300 leading-relaxed">
+      Anne’s Villa was built as a heartfelt birthday gift — a home created 
+      with love, care, and a dream of something truly special.
+    </p>
+
+  </div>
+
+</motion.section>
+
+<motion.section
+  id="about"
+  className="py-28 px-6 md:px-20 flex flex-col md:flex-row items-center gap-10"
+  initial={{ opacity: 0, y: 50 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.8 }}
+  viewport={{ once: true }}
+>
+
+  {/* IMAGE */}
+  <div className="w-full md:w-1/2 flex justify-center">
+    <img
+      src="/mom.jpg"
+      alt="Anne"
+      className="rounded-2xl w-72 h-72 object-cover shadow-2xl transition duration-500 hover:scale-105"
+    />
+  </div>
+
+  {/* TEXT */}
+  <div className="w-full md:w-1/2 text-center md:text-left">
+    <h2 className="text-3xl text-yellow-400 mb-4 font-serif">
+      For Anne
+    </h2>
+
+    <div className="w-12 h-[2px] bg-yellow-400 mb-4 mx-auto md:mx-0"></div>
+
+    <p className="text-gray-300 leading-relaxed">
+      This villa was built with love, as a special birthday surprise for Anne — 
+      a woman whose warmth, strength, and kindness have shaped the lives around her.  
+      Every corner of this home carries a story, a memory, and a deep appreciation 
+      for everything she has given.
+    </p>
+  </div>
+
+</motion.section>
      
 
       {/* GALLERY */}
@@ -120,6 +184,9 @@ export default function App() {
         </h2>
         <p className="text-gray-300">Gamekkanda, Mathugama, Sri Lanka</p>
         <p className="text-gray-300">+94 70 421 4127</p>
+        <a href="https://wa.me/94704214127" target="_blank">
+        Chat on WhatsApp
+        </a>
       </motion.section>
 
     </div>
