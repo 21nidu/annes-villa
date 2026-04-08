@@ -138,7 +138,7 @@ export default function App() {
       {/* GALLERY */}
       <motion.section
       id="gallery"
-      className="py-28 px-6 md:px-20"
+      className="py-20 px-6 md:px-20"
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       transition={{ duration: 1 }}
@@ -173,7 +173,7 @@ export default function App() {
 
 <motion.section
   id="reviews"
-  className="py-28 px-6 md:px-20 text-center"
+  className="py-20 px-6 md:px-20 text-center"
   initial={{ opacity: 0, y: 50 }}
   whileInView={{ opacity: 1, y: 0 }}
   transition={{ duration: 0.8 }}
@@ -237,7 +237,7 @@ export default function App() {
       {/* CONTACT */}
       <motion.section 
         id="contact"
-        className="py-28 text-center"
+        className="py-20 text-center"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
