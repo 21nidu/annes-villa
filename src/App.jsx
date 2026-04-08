@@ -55,7 +55,7 @@ export default function App() {
           </p>
 
           <a
-            href="mailto:waniduwaram21@gmail.com?subject=Stay Booking Inquiry&body=Hello,%0A%0AI would like to inquire about booking a stay at Anne's Villa.%0A%0AThank you."
+            href="mailto:annesvilla.gamekkanda@gmail.com?subject=Stay Booking Inquiry&body=Hello,%0A%0AI would like to inquire about booking a stay at Anne's Villa.%0A%0AThank you."
             target="_blank"
             className="mt-6 px-6 py-3 bg-yellow-400 text-black rounded-full hover:bg-yellow-300 transition inline-block"
           >
