@@ -171,6 +171,69 @@ export default function App() {
 
       </motion.section>
 
+<motion.section
+  id="reviews"
+  className="py-28 px-6 md:px-20 text-center"
+  initial={{ opacity: 0, y: 50 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.8 }}
+  viewport={{ once: true }}
+>
+
+  <h2 className="text-3xl text-yellow-400 mb-12 font-serif">
+    What People Say
+  </h2>
+
+  <div className="flex gap-6 overflow-x-auto pb-4">
+
+    {/* REVIEW CARD */}
+    <div className="min-w-[300px] bg-gray-900 p-6 rounded-2xl shadow-lg">
+      <p className="text-gray-300 italic">
+        “A beautiful and peaceful place. Truly feels like home.”
+      </p>
+      <h4 className="mt-4 text-yellow-400 font-semibold">– Guest</h4>
+    </div>
+
+    <div className="min-w-[300px] bg-gray-900 p-6 rounded-2xl shadow-lg">
+      <p className="text-gray-300 italic">
+        “Amazing design and atmosphere. A perfect getaway.”
+      </p>
+      <h4 className="mt-4 text-yellow-400 font-semibold">– Visitor</h4>
+    </div>
+
+    <div className="min-w-[300px] bg-gray-900 p-6 rounded-2xl shadow-lg">
+      <p className="text-gray-300 italic">
+        “Everything about this place feels warm and welcoming.”
+      </p>
+      <h4 className="mt-4 text-yellow-400 font-semibold">– Traveler</h4>
+    </div>
+
+    {/* ADD MORE REVIEWS LIKE THIS 👇 */}
+    <div className="min-w-[300px] bg-gray-900 p-6 rounded-2xl shadow-lg">
+      <p className="text-gray-300 italic">
+        “A truly relaxing and beautiful environment.”
+      </p>
+      <h4 className="mt-4 text-yellow-400 font-semibold">– Guest</h4>
+    </div>
+
+    <div className="min-w-[300px] bg-gray-900 p-6 rounded-2xl shadow-lg">
+      <p className="text-gray-300 italic">
+        “Was a great experience, Had a great time with the fam.”
+      </p>
+      <h4 className="mt-4 text-yellow-400 font-semibold">– Guest</h4>
+    </div>
+
+        <div className="min-w-[300px] bg-gray-900 p-6 rounded-2xl shadow-lg">
+      <p className="text-gray-300 italic">
+        “Awesome place, Awesome staff.”
+      </p>
+      <h4 className="mt-4 text-yellow-400 font-semibold">– Guest</h4>
+    </div>
+
+  </div>
+
+</motion.section>
+
       {/* CONTACT */}
       <motion.section 
         id="contact"
