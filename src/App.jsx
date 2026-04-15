@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { useEffect } from "react";
 
+
 export default function App() {
   const images = [
   "/villa1.jpg",
@@ -52,6 +53,38 @@ export default function App() {
 
   const [touchStart, setTouchStart] = useState(0);
 
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+  const timer = setTimeout(() => {
+    setLoading(false);
+  }, 2000); // 2 seconds
+
+  return () => clearTimeout(timer);
+}, []);
+
+  if (loading) {
+    return (
+      <div className="h-screen w-full bg-black flex items-center justify-center">
+
+        <div className="relative flex items-center justify-center">
+
+          {/* SPINNING RING */}
+          <div className="absolute w-56 h-56 border-2 border-yellow-400/30 border-t-yellow-400 rounded-full slow-spin"></div>
+
+          {/* LOGO */}
+          <img
+            src="/logo.png"
+            alt="Anne’s Villa"
+            className="h-28 object-contain"
+          />
+
+        </div>
+
+      </div>
+    );
+  }
+
   return (
     <div className="bg-black text-white min-h-screen">
 
@@ -59,14 +92,13 @@ export default function App() {
   <div className="flex justify-between items-center px-8 py-4">
 
     {/* LOGO */}
-    <div className="text-yellow-400 font-serif flex flex-col items-center leading-tight">
-      <h1 className="text-2xl tracking-wide">
-        Anne’s Villa
-      </h1>
-      <p className="text-xs tracking-widest uppercase opacity-70">
-        Gamekkanda
-      </p>
-    </div>
+  <div className="flex items-center">
+    <img
+      src="/logo.png"
+      alt="Anne’s Villa"
+      className="h-24 object-contain -my-3"
+    />
+  </div>
 
     {/* LINKS */}
     <div className="space-x-6 text-sm">
@@ -92,27 +124,39 @@ export default function App() {
         <div className="absolute inset-0 bg-black/60"></div>
 
         {/* CONTENT */}
-        <motion.div 
-            className="relative z-10"
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1 }}
-          >
-          <h1 className="text-6xl md:text-8xl font-serif text-yellow-400 tracking-wide">
-            Anne’s Villa
-          </h1>
-          <p className="mt-6 text-lg text-gray-300 tracking-wide">
-            Built with Love
-          </p>
+      <motion.div 
+        className="relative z-10 flex flex-col items-center text-center"
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1 }}
+      >
 
-          <a
-            href="mailto:annesvilla.gamekkanda@gmail.com?subject=Stay Booking Inquiry&body=Hello,%0A%0AI would like to inquire about booking a stay at Anne's Villa.%0A%0AThank you."
-            target="_blank"
-            className="mt-6 px-6 py-3 bg-yellow-400 text-black rounded-full hover:bg-yellow-300 transition inline-block"
-          >
-            Book a Stay
-          </a>
-        </motion.div>
+        <h1 className="text-6xl md:text-8xl font-serif text-yellow-400 tracking-wide">
+          Anne’s Villa
+        </h1>
+
+        <p className="mt-2 text-base md:text-lg text-yellow-400 tracking-[0.3em] uppercase opacity-80">
+          Gamekkanda
+        </p>
+
+        {/* SMALL DIVIDER */}
+        <div className="w-16 h-[2px] bg-yellow-400 my-3 opacity-60"></div>
+
+        <p className="text-lg text-gray-300 tracking-wide">
+          Built with Love
+        </p>
+
+        <motion.a
+          href="mailto:annesvilla.gamekkanda@gmail.com?subject=Stay Booking Inquiry"
+          target="_blank"
+          className="mt-6 px-8 py-3 bg-yellow-400 text-black rounded-full font-medium tracking-wide shadow-lg border border-yellow-300/30 hover:bg-yellow-300 hover:shadow-yellow-400/30 transition duration-300 inline-block"          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          Book a Stay
+</motion.a>
+
+      </motion.div>
+
       </section>
 
       <div className="w-full h-[2px] bg-gradient-to-r from-transparent via-yellow-400 to-transparent"></div>
@@ -296,17 +340,18 @@ export default function App() {
       {/* CONTACT */}
 <motion.section 
   id="contact"
-  className="py-20 text-center"
+  className="py-20 text-center px-6 md:px-20"
   initial={{ opacity: 0, y: 50 }}
   whileInView={{ opacity: 1, y: 0 }}
   transition={{ duration: 0.8 }}
 >
+
   <h2 className="text-3xl text-yellow-400 mb-6 font-serif">
     Contact
   </h2>
 
   <p className="text-gray-300">
-    Gamekkanda, Mathugama, Sri Lanka
+    843A, Gamekkanda North, Pahala Hewessa, Matugama, Sri Lanka
   </p>
 
   <a
@@ -320,13 +365,40 @@ export default function App() {
     href="https://wa.me/94704214127"
     target="_blank"
     rel="noopener noreferrer"
-    className="mt-6 inline-flex items-center gap-2 bg-green-600 text-white px-6 py-3 rounded-full hover:bg-green-500 transition duration-300 shadow-lg hover:scale-105"
+    className="mt-4 inline-flex items-center gap-2 bg-green-600 text-white px-6 py-3 rounded-full hover:bg-green-500 transition duration-300 shadow-lg hover:scale-105"
   >
     <FaWhatsapp className="text-xl" />
     Chat on WhatsApp
   </a>
 
+  {/* GET DIRECTIONS */}
+
+
+  {/* MAP */}
+  <div className="mt-10 w-full max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-lg border border-yellow-400/20 hover:shadow-yellow-400/20 transition duration-300">
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3964.906163714733!2d80.23594307499187!3d6.406088993584653!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNsKwMjQnMjEuOSJOIDgwwrAxNCcxOC43IkU!5e0!3m2!1sen!2slk!4v1776259859967!5m2!1sen!2slk"
+      className="w-full h-[350px]"
+      style={{ border: 0 }}
+      allowFullScreen=""
+      loading="lazy"
+      referrerPolicy="no-referrer-when-downgrade"
+    ></iframe>
+  </div>
+
+    <div className="flex justify-center mt-6">
+    <a
+      href="https://www.google.com/maps?q=6.406088,80.235943"
+      target="_blank"
+      className="px-6 py-2 border border-yellow-400 text-yellow-400 rounded-full text-sm tracking-wide shadow-md hover:bg-yellow-400 hover:text-black hover:shadow-yellow-400/30 transition duration-300"
+    >
+      Get Directions
+    </a>
+  </div>
+
 </motion.section>
+
+
 
 <footer className="py-6 text-center text-gray-500 text-sm border-t border-gray-800">
   © {new Date().getFullYear()} Anne’s Villa Gamekkanda. All rights reserved.
