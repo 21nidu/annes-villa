@@ -96,7 +96,7 @@ export default function App() {
       <div className="flex justify-between items-center px-6 md:px-8 py-3">
 
         {/* LOGO */}
-        <div className="flex items-center">
+        <div className="flex items-center -ml-2 md:ml-0">
           <img
             src="/logo.png"
             alt="Anne’s Villa"
