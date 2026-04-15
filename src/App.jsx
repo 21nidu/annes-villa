@@ -1,6 +1,57 @@
+import { FaWhatsapp } from "react-icons/fa";
 import { motion } from "framer-motion";
+import { useState } from "react";
+import { useEffect } from "react";
 
 export default function App() {
+  const images = [
+  "/villa1.jpg",
+  "/villa2.jpg",
+  "/villa3.jpg",
+  "/villa4.jpg",
+  "/villa5.jpg",
+  "/villa6.jpg",
+  "/villa7.jpg",
+  "/villa8.jpg",
+  "/villa9.jpg",
+  "/villa10.jpg",
+  "/villa11.jpg",
+  "/villa12.jpg",
+  "/villa13.jpg",
+  "/villa14.jpg",
+  "/villa15.jpg",
+  "/villa16.jpg",
+];
+
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  useEffect(() => {
+  const handleKey = (e) => {
+    if (!selectedImage) return;
+
+    const currentIndex = images.indexOf(selectedImage);
+
+    if (e.key === "ArrowRight") {
+      const nextIndex = (currentIndex + 1) % images.length;
+      setSelectedImage(images[nextIndex]);
+    }
+
+    if (e.key === "ArrowLeft") {
+      const prevIndex = (currentIndex - 1 + images.length) % images.length;
+      setSelectedImage(images[prevIndex]);
+    }
+
+    if (e.key === "Escape") {
+      setSelectedImage(null);
+    }
+  };
+
+  window.addEventListener("keydown", handleKey);
+  return () => window.removeEventListener("keydown", handleKey);
+}, [selectedImage]);
+
+  const [touchStart, setTouchStart] = useState(0);
+
   return (
     <div className="bg-black text-white min-h-screen">
 
@@ -19,10 +70,10 @@ export default function App() {
 
     {/* LINKS */}
     <div className="space-x-6 text-sm">
-      <a href="#home" className="hover:text-yellow-400">Home</a>
-      <a href="#about" className="hover:text-yellow-400">About</a>
-      <a href="#gallery" className="hover:text-yellow-400">Gallery</a>
-      <a href="#contact" className="hover:text-yellow-400">Contact</a>
+      <a href="#home" className="hover:text-yellow-400 transition">Home</a>
+      <a href="#about" className="hover:text-yellow-400 transition">About</a>
+      <a href="#gallery" className="hover:text-yellow-400 transition">Gallery</a>
+      <a href="#contact" className="hover:text-yellow-400 transition">Contact</a>
     </div>
 
   </div>
@@ -33,7 +84,7 @@ export default function App() {
         id="home"
         className="h-screen pt-20 flex flex-col justify-center items-center text-center px-4 bg-cover bg-center relative"
         style={{
-          backgroundImage: "url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c')"
+          backgroundImage: "url('/villa.jpg')"
         }}
       >
 
@@ -63,6 +114,8 @@ export default function App() {
           </a>
         </motion.div>
       </section>
+
+      <div className="w-full h-[2px] bg-gradient-to-r from-transparent via-yellow-400 to-transparent"></div>
 
      
 
@@ -136,40 +189,46 @@ export default function App() {
      
 
       {/* GALLERY */}
-      <motion.section
-      id="gallery"
-      className="py-20 px-6 md:px-20"
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      transition={{ duration: 1 }}
-    >
+<motion.section
+  id="gallery"
+  className="py-20 px-6 md:px-20"
+  initial={{ opacity: 0 }}
+  whileInView={{ opacity: 1 }}
+  transition={{ duration: 1 }}
+>
 
-      <h2 className="text-3xl text-yellow-400 text-center mb-10 font-serif">
-        Gallery
-      </h2>
+  <h2 className="text-3xl text-yellow-400 text-center mb-10 font-serif">
+    Gallery
+  </h2>
 
-      <div className="grid md:grid-cols-3 gap-6">
+  <div className="flex overflow-x-auto gap-6 pb-4">
 
-      <img 
-        src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c"
-        alt="Luxury villa exterior"
-        className="rounded-2xl h-64 w-full object-cover hover:scale-110 transition duration-700 ease-in-out"
-      />
+    {images.map((img, index) => (
+      <div
+        key={index}
+        onClick={() => setSelectedImage(img)}
+        className="relative min-w-[250px] h-64 overflow-hidden rounded-2xl group cursor-pointer"
+      >
+        {/* IMAGE */}
+        <img
+          src={img}
+          alt={`Villa ${index + 1}`}
+          loading="lazy"
+          className="w-full h-full object-cover transition duration-500 group-hover:scale-110"
+        />
 
-      <img 
-        src="https://images.unsplash.com/photo-1600585154526-990dced4db0d"
-        alt="Modern villa design"
-        className="rounded-2xl h-64 w-full object-cover hover:scale-110 transition duration-700 ease-in-out"
-      />
-
-      <img 
-        src="https://images.unsplash.com/photo-1600573472550-8090b5e0745e"
-        alt="Elegant house architecture"
-        className="rounded-2xl h-64 w-full object-cover hover:scale-110 transition duration-700 ease-in-out"
-      />
+        {/* OVERLAY */}
+        <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition duration-500 flex items-center justify-center">
+          <span className="text-white text-sm tracking-wide">
+            View
+          </span>
+        </div>
       </div>
+    ))}
 
-      </motion.section>
+  </div>
+
+</motion.section>
 
 <motion.section
   id="reviews"
@@ -235,23 +294,119 @@ export default function App() {
 </motion.section>
 
       {/* CONTACT */}
-      <motion.section 
-        id="contact"
-        className="py-20 text-center"
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-      >
-        <h2 className="text-3xl text-yellow-400 mb-6 font-serif">
-          Contact
-        </h2>
-        <p className="text-gray-300">Gamekkanda, Mathugama, Sri Lanka</p>
-        <p className="text-gray-300">+94 70 421 4127</p>
-        <a href="https://wa.me/94704214127" target="_blank">
-        Chat on WhatsApp
-        </a>
-      </motion.section>
+<motion.section 
+  id="contact"
+  className="py-20 text-center"
+  initial={{ opacity: 0, y: 50 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.8 }}
+>
+  <h2 className="text-3xl text-yellow-400 mb-6 font-serif">
+    Contact
+  </h2>
 
+  <p className="text-gray-300">
+    Gamekkanda, Mathugama, Sri Lanka
+  </p>
+
+  <a
+    href="https://wa.me/94704214127"
+    className="text-gray-300 hover:text-green-400 transition block mt-2"
+  >
+    +94 70 421 4127
+  </a>
+
+  <a
+    href="https://wa.me/94704214127"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="mt-6 inline-flex items-center gap-2 bg-green-600 text-white px-6 py-3 rounded-full hover:bg-green-500 transition duration-300 shadow-lg hover:scale-105"
+  >
+    <FaWhatsapp className="text-xl" />
+    Chat on WhatsApp
+  </a>
+
+</motion.section>
+
+<footer className="py-6 text-center text-gray-500 text-sm border-t border-gray-800">
+  © {new Date().getFullYear()} Anne’s Villa Gamekkanda. All rights reserved.
+</footer>
+
+  <a
+    href="https://wa.me/94704214127"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="fixed bottom-6 right-6 bg-green-600 text-white p-4 rounded-full shadow-lg hover:bg-green-500 transition duration-300 z-50"
+  >
+    <FaWhatsapp className="text-2xl" />
+  </a>
+
+{selectedImage && (
+  <div
+    className="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center z-50"
+
+    onTouchStart={(e) => setTouchStart(e.touches[0].clientX)}
+
+    onTouchEnd={(e) => {
+      const touchEnd = e.changedTouches[0].clientX;
+      const diff = touchStart - touchEnd;
+
+      const currentIndex = images.indexOf(selectedImage);
+
+      if (diff > 50) {
+        const nextIndex = (currentIndex + 1) % images.length;
+        setSelectedImage(images[nextIndex]);
+      }
+
+      if (diff < -50) {
+        const prevIndex = (currentIndex - 1 + images.length) % images.length;
+        setSelectedImage(images[prevIndex]);
+      }
+    }}
+  >
+
+    {/* CLOSE BUTTON */}
+    <button
+      onClick={() => setSelectedImage(null)}
+      className="absolute top-6 right-6 text-white text-3xl hover:text-yellow-400 transition"
+    >
+      ✕
+    </button>
+
+    {/* LEFT ARROW */}
+    <button
+      onClick={() => {
+        const currentIndex = images.indexOf(selectedImage);
+        const prevIndex = (currentIndex - 1 + images.length) % images.length;
+        setSelectedImage(images[prevIndex]);
+      }}
+      className="absolute left-6 bg-black/40 px-3 py-1 rounded-full text-white text-3xl hover:text-yellow-400 transition"
+    >
+      ‹
+    </button>
+
+    {/* IMAGE */}
+    <img
+      src={selectedImage}
+      alt="Preview"
+      className="max-w-[90%] max-h-[90%] rounded-xl scale-95 animate-[fadeIn_0.3s_ease_forwards]"
+      onClick={(e) => e.stopPropagation()}
+    />
+
+    {/* RIGHT ARROW */}
+    <button
+      onClick={() => {
+        const currentIndex = images.indexOf(selectedImage);
+        const nextIndex = (currentIndex + 1) % images.length;
+        setSelectedImage(images[nextIndex]);
+      }}
+      className="absolute right-6 bg-black/40 px-3 py-1 rounded-full text-white text-3xl hover:text-yellow-400 transition"
+    >
+      ›
+    </button>
+
+  </div>
+)}
     </div>
   );
 }
