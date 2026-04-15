@@ -24,6 +24,8 @@ export default function App() {
   "/villa16.jpg",
 ];
 
+  const [submitted, setSubmitted] = useState(false);
+
   const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
@@ -85,31 +87,41 @@ export default function App() {
     );
   }
 
+
+
   return (
     <div className="bg-black text-white min-h-screen">
 
-      <nav className="fixed top-0 left-0 w-full z-50 bg-black/30 backdrop-blur-md">
-  <div className="flex justify-between items-center px-8 py-4">
+    <nav className="fixed top-0 left-0 w-full z-50 bg-black/40 backdrop-blur-md">
+      <div className="flex justify-between items-center px-6 md:px-8 py-3">
 
-    {/* LOGO */}
-  <div className="flex items-center">
-    <img
-      src="/logo.png"
-      alt="Anne’s Villa"
-      className="h-24 object-contain -my-3"
-    />
-  </div>
+        {/* LOGO */}
+        <div className="flex items-center">
+          <img
+            src="/logo.png"
+            alt="Anne’s Villa"
+            className="h-16 md:h-20 object-contain"
+          />
+        </div>
 
-    {/* LINKS */}
-    <div className="space-x-6 text-sm">
-      <a href="#home" className="hover:text-yellow-400 transition">Home</a>
-      <a href="#about" className="hover:text-yellow-400 transition">About</a>
-      <a href="#gallery" className="hover:text-yellow-400 transition">Gallery</a>
-      <a href="#contact" className="hover:text-yellow-400 transition">Contact</a>
-    </div>
+        {/* LINKS */}
+        <div className="flex items-center space-x-4 md:space-x-6 text-sm md:text-base">
+          <a href="#home" className="hover:text-yellow-400 transition">
+            Home
+          </a>
+          <a href="#about" className="hover:text-yellow-400 transition">
+            About
+          </a>
+          <a href="#gallery" className="hover:text-yellow-400 transition">
+            Gallery
+          </a>
+          <a href="#contact" className="hover:text-yellow-400 transition">
+            Contact
+          </a>
+        </div>
 
-  </div>
-</nav>
+      </div>
+    </nav>
 
       {/* HERO SECTION */}
       <section
@@ -147,13 +159,11 @@ export default function App() {
         </p>
 
         <motion.a
-          href="mailto:annesvilla.gamekkanda@gmail.com?subject=Stay Booking Inquiry"
-          target="_blank"
-          className="mt-6 px-8 py-3 bg-yellow-400 text-black rounded-full font-medium tracking-wide shadow-lg border border-yellow-300/30 hover:bg-yellow-300 hover:shadow-yellow-400/30 transition duration-300 inline-block"          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+          href="#booking"
+          className="mt-6 px-8 py-3 bg-yellow-400 text-black rounded-full font-medium tracking-wide shadow-lg hover:bg-yellow-300 hover:shadow-yellow-400/30 transition duration-300 inline-block"
         >
           Book a Stay
-</motion.a>
+        </motion.a>
 
       </motion.div>
 
@@ -399,6 +409,86 @@ export default function App() {
 </motion.section>
 
 
+  {/* BOOKING FORM */}
+<motion.section
+  id="booking"
+  className="py-20 px-6 md:px-20 text-center"
+  initial={{ opacity: 0, y: 50 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.8 }}
+>
+
+  <h2 className="text-3xl text-yellow-400 mb-6 font-serif">
+    Book Your Stay
+  </h2>
+
+  <p className="text-gray-400 mb-8">
+    Fill the form and we’ll get back to you shortly
+  </p>
+
+  {/* 🔥 THIS IS THE PART YOU ADD */}
+  {submitted ? (
+    <div className="text-center mt-10">
+      <h3 className="text-2xl text-yellow-400 font-serif">
+        Booking Request Sent ✨
+      </h3>
+      <p className="text-gray-400 mt-2">
+        We’ll get back to you shortly.
+      </p>
+    </div>
+  ) : (
+    <form
+      onSubmit={async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(e.target);
+
+        const response = await fetch("https://formspree.io/f/xqeweqvk", {
+          method: "POST",
+          body: formData,
+          headers: {
+            Accept: "application/json",
+          },
+        });
+
+        if (response.ok) {
+          setSubmitted(true);
+          e.target.reset();
+        }
+      }}
+      className="max-w-2xl mx-auto space-y-4"
+    >
+
+      <input type="hidden" name="_subject" value="New Booking Request - Anne's Villa" />
+      <input type="text" name="_gotcha" style={{ display: "none" }} />
+
+      {/* INPUTS */}
+
+      <input name="name" placeholder="Your Name" required className="w-full px-4 py-3 bg-black/40 border border-gray-700 rounded-lg focus:outline-none focus:border-yellow-400" />
+
+      <input name="email" type="email" placeholder="Your Email" required className="w-full px-4 py-3 bg-black/40 border border-gray-700 rounded-lg focus:outline-none focus:border-yellow-400" />
+
+      <div className="grid md:grid-cols-2 gap-4">
+        <input type="date" name="checkin" required className="px-4 py-3 bg-black/40 border border-gray-700 rounded-lg focus:outline-none focus:border-yellow-400" />
+        <input type="date" name="checkout" required className="px-4 py-3 bg-black/40 border border-gray-700 rounded-lg focus:outline-none focus:border-yellow-400" />
+      </div>
+
+      <textarea name="message" placeholder="Any special requests..." rows="4" className="w-full px-4 py-3 bg-black/40 border border-gray-700 rounded-lg focus:outline-none focus:border-yellow-400"></textarea>
+
+      {/* BUTTON INSIDE FORM (cleaner) */}
+      <div className="flex justify-center mt-6">
+        <button
+          type="submit"
+          className="px-8 py-3 bg-yellow-400 text-black rounded-full font-medium hover:bg-yellow-300 transition shadow-lg hover:scale-105"
+        >
+          Request Booking
+        </button>
+      </div>
+
+    </form>
+  )}
+
+</motion.section>
 
 <footer className="py-6 text-center text-gray-500 text-sm border-t border-gray-800">
   © {new Date().getFullYear()} Anne’s Villa Gamekkanda. All rights reserved.
